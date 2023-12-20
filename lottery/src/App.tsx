@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import LotteryBall from './components/LotteryBall';
+import './App.css';  
 
 const App: React.FC = () => {
   const initialNumbers = [5, 11, 16, 23, 32];

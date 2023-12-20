@@ -1,5 +1,4 @@
-import React from 'react';
-import './LotteryBall.css';  
+import React from 'react';  
 
 interface LotteryBallProps {
   number: number;
