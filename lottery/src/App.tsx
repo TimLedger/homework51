@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import LotteryBall from './components/LotteryBall';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const initialNumbers = [5, 11, 16, 23, 32];
+  const [numbers, setNumbers] = useState<number[]>(initialNumbers);
+
+  const generateNewNumbers = () => {
+    const newNumbers = generateRandomNumbers();
+    setNumbers(newNumbers);
+  };
+
+  const generateRandomNumbers = () => {
+    const newNumbers: number[] = [];
+    while (newNumbers.length < 5) {
+      const randomNumber = Math.floor(Math.random() * 32) + 5;  
+      if (!newNumbers.includes(randomNumber)) {
+        newNumbers.push(randomNumber);
+      }
+    }
+    return newNumbers.sort((a, b) => a - b);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app-container">
+      <h1>Lottery Numbers</h1>
+      <div className="lottery-balls-container">
+        {numbers.map((number) => (
+          <LotteryBall key={number} number={number} />
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <button className="new-numbers-button" onClick={generateNewNumbers}>
+        New numbers
+      </button>
+    </div>
+  );
+};
 
-export default App
+export default App;
